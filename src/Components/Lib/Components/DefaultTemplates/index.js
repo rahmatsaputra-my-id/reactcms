@@ -32,7 +32,7 @@ const styles = {
       paddingLeft: 54,
       paddingRight: 54,
       paddingTop: 24,
-      paddingBottom: 48,
+      paddingBottom: 0,
       flex: 1
    },
 }

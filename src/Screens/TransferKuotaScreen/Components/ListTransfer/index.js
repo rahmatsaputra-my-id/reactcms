@@ -29,6 +29,6 @@ export default class ListTransfer extends Component {
 
 const styles = {
    container: {
-      height: 700
+      height: 0
    }
 }

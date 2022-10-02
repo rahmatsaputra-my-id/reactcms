@@ -61,7 +61,7 @@ export default class AddTransfer extends Component {
                />
             </View>
 
-            <View style={{ height: 700 }}>
+            <View style={{ height: 0 }}>
                {/* <DataGrid
                   columns={columns}
                   rows={rows}

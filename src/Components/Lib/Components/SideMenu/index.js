@@ -92,7 +92,8 @@ export default class SideMenu extends Component {
 const styles = {
    outterContainer: {
       padding: 16,
-      backgroundColor: Colors.red
+      backgroundColor: Colors.red,
+      height: window.innerHeight
    },
    container: {
       flex: 1,
@@ -111,11 +112,12 @@ const styles = {
    },
    toolbarContainer: {
       height: 50,
-      alignItem: 'center',
-      flexDirection: 'row',
       paddingLeft: 16,
-      backgroundColor: Colors.darkBlueBlack,
-      paddingRight: 16
+      paddingRight: 16,
+      alignItem: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      backgroundColor: Colors.darkBlueBlack
    },
    buttonContainer: {
       backgroundColor: Colors.blue,
