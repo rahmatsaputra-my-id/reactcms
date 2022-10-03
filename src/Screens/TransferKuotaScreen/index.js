@@ -146,13 +146,7 @@ class AllocatedQuotaScreen extends Component {
       );
    }
 
-   render() {
-      return (
-         <DefaultTemplates
-            children={this._renderView()}
-         />
-      );
-   }
+   render() { return (this._renderView()); }
 }
 
 const mapStateToProps = state => {
