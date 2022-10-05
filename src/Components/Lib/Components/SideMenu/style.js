@@ -2,12 +2,12 @@ import { Colors } from "../../../Themes";
 
 export const styles = {
    outterContainer: {
-      padding: 16,
       backgroundColor: Colors.red,
       height: window.innerHeight
    },
    container: {
       flex: 1,
+      margin: 16,
       paddingTop: 16,
       borderRadius: 16,
       backgroundColor: Colors.darkBlueBlack,
