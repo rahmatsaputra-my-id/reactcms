@@ -7,13 +7,13 @@ import { DefaultTemplates } from './Components/Lib';
 export default class App extends Component {
   render() {
     return (
-      <DefaultTemplates
-        children={
-          <Provider store={store}>
+      <Provider store={store}>
+        <DefaultTemplates
+          children={
             <Navigator />
-          </Provider>
-        }
-      />
+          }
+        />
+      </Provider>
     );
   }
 }

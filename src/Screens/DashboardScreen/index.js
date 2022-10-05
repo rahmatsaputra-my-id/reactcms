@@ -1,0 +1,78 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getAllData } from '../../Helper/Action';
+import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
+import { Text, View, DefaultTemplates } from '../../Components/Lib';
+
+class DashboardScreen extends Component {
+   constructor(props) {
+      super(props);
+
+      this.state = {
+         listAllData: false,
+         listDataById: false,
+         columnsSummaryTable: [],
+         rowsSummaryTable: [],
+         isInputDataTransfer: false,
+         warehouseIdSelected: false
+      }
+   }
+
+   componentDidMount() {
+   }
+
+   _renderScreen = () => {
+      const { isInputDataTransfer } = this.state;
+
+      return (
+         <View>
+            <Text
+               style={styles.title}
+               children={'Dashboard Screen'}
+            />
+         </View>
+      );
+   }
+
+   render() { return (this._renderScreen()); }
+}
+
+const mapStateToProps = state => {
+   const { selectedWarehouseId } = state;
+   return {
+      selectedWarehouseId
+   };
+};
+
+const mapDispatchToProps = dispatch => ({
+   setSelectedWarehouseId: (data) =>
+      dispatch({
+         type: SET_SELECTED_WAREHOUSE_ID,
+         selectedWarehouseId: data
+      })
+});
+
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(DashboardScreen);
+
+
+const styles = {
+   container: {
+      display: 'flex',
+      flexDirection: 'row'
+   },
+   content: {
+      paddingLeft: 48,
+      paddingRight: 48,
+      paddingTop: 24,
+      paddingBottom: 48,
+      flex: 1
+   },
+   title: {
+      fontWeight: 'bold',
+      fontSize: 32,
+      marginBottom: 32
+   }
+};

@@ -4,8 +4,7 @@ import {
 } from '../Constants';
 
 const defaultState = {
-   widthListener: false,
-   selectedWarehouseId: false
+   widthListener: false
 };
 
 const appReducer = (state = defaultState, action) => {

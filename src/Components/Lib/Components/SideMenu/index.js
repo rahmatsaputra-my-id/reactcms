@@ -7,15 +7,18 @@ import {
    View
 } from '../../../Lib';
 import {
-   iconAllocatedKuota,
    iconToolbar
 } from '../../../../Assets/Shared';
+import { capitalizeEveryWord } from '../../../../Helper/Functional';
+import { pathVariables } from '../../../../Helper/Variables';
+import { styles } from './style';
 
 export default class SideMenu extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         dataDrawer: false
+         dataDrawer: false,
+         currentScreen: false
       }
    }
 
@@ -24,19 +27,18 @@ export default class SideMenu extends Component {
    }
 
    _handlerDataDrawer = () => {
-      const data = [
-         {
-            'icon': iconAllocatedKuota,
-            'title': 'Transfer Kuota',
-            'onClick': () => { window.location.replace('/home/erp/transfer-kuota'); }
-         }
-      ];
+      const url = window.location.pathname;
+      let result = url.split('/');
+      result.splice(0, 1);
 
-      this.setState({ dataDrawer: data });
+      this.setState({
+         dataDrawer: pathVariables,
+         currentScreen: result[0]
+      });
    }
 
    _renderDrawer = () => {
-      const { dataDrawer } = this.state;
+      const { dataDrawer, currentScreen } = this.state;
 
       return (
          <>
@@ -56,19 +58,26 @@ export default class SideMenu extends Component {
             <View style={styles.listContainer}>
 
                {dataDrawer && dataDrawer?.map((item, index) => {
-                  const { icon, title, onClick } = item;
+                  const { icon, route, onClick } = item;
+                  const isCurrentScreen = (route === currentScreen);
+
                   return (
-                     <View key={index} style={styles.buttonContainer}>
-                        <Image
-                           style={styles.buttonIcon}
-                           src={icon}
-                        />
-                        <Button
-                           transparent
-                           onClick={onClick}
-                           style={styles.buttonTitle}
-                           children={title}
-                        />
+                     <View key={index}>
+                        <View style={{ ...styles.buttonContainer, backgroundColor: isCurrentScreen ? Colors.blue : 'transparent' }}>
+                           <Image
+                              style={styles.buttonIcon}
+                              src={icon}
+                           />
+                           <Button
+                              transparent
+                              onClick={onClick}
+                              style={styles.buttonTitle}
+                              children={capitalizeEveryWord(route)}
+                           />
+                        </View>
+                        {index !== (dataDrawer.length - 1) && (
+                           <View style={styles.spaces} />
+                        )}
                      </View>
                   );
                })}
@@ -87,84 +96,4 @@ export default class SideMenu extends Component {
          </View>
       );
    }
-}
-
-const styles = {
-   outterContainer: {
-      padding: 16,
-      backgroundColor: Colors.red,
-      height: window.innerHeight
-   },
-   container: {
-      flex: 1,
-      paddingTop: 16,
-      borderRadius: 16,
-      backgroundColor: Colors.darkBlueBlack,
-      width: 250
-   },
-   line: {
-      height: 0.1,
-      marginTop: 16,
-      marginBottom: 24,
-      marginRight: 32,
-      marginLeft: 32,
-      backgroundColor: Colors.white,
-   },
-   toolbarContainer: {
-      height: 50,
-      paddingLeft: 16,
-      paddingRight: 16,
-      alignItem: 'center',
-      justifyContent: 'center',
-      flexDirection: 'row',
-      backgroundColor: Colors.darkBlueBlack
-   },
-   buttonContainer: {
-      backgroundColor: Colors.blue,
-      padding: 16,
-      borderRadius: 4,
-      flexDirection: 'row'
-   },
-   toolbarIcon: {
-      alignSelf: 'center',
-      resizeMode: 'contain',
-      height: 24,
-      width: 24,
-      marginRight: 8
-   },
-   buttonIcon: {
-      alignSelf: 'center',
-      resizeMode: 'contain',
-      height: 16,
-      width: 16,
-      marginRight: 8
-   },
-   toolbarTitle: {
-      alignSelf: 'center',
-      fontSize: 14,
-      color: Colors.white,
-      fontWeight: 'bold'
-   },
-   buttonTitle: {
-      alignSelf: 'center',
-      fontSize: 12,
-      color: Colors.white
-   },
-   listContainer: {
-      flexDirection: 'column',
-      paddingLeft: 16,
-      paddingRight: 16
-   },
-   listTitle: {
-      paddingTop: 16,
-      paddingLeft: 16,
-      paddingRight: 16,
-      paddingBottom: 8,
-      textAlign: 'left',
-      fontSize: 13,
-      color: Colors.white,
-   },
-   listItemTitle: {
-      color: Colors.white
-   },
 };

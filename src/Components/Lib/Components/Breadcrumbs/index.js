@@ -1,3 +1,4 @@
+import { capitalizeEveryWord } from '../../../../Helper/Functional';
 import './index.css';
 
 const Breadcrumbs = ({
@@ -22,14 +23,12 @@ const Breadcrumbs = ({
             ...style
          }}>
          {result.map((items, index) => {
-            const lastIndex = index == (result?.length - 1);
-            const upperCaseFirstChar = items.charAt(0).toUpperCase() + items.slice(1);
-            const route = upperCaseFirstChar.replaceAll('-', ' ');
+            const lastIndex = index === (result?.length - 1);
 
             return (
                lastIndex
-                  ? <li key={index}>{route}</li>
-                  : <li key={index}><a>{route}</a></li>
+                  ? <li key={index}>{capitalizeEveryWord(items)}</li>
+                  : <li key={index}><a>{capitalizeEveryWord(items)}</a></li>
             );
          })}
       </ul>

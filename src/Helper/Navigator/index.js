@@ -5,6 +5,7 @@ import {
    Routes
 } from 'react-router-dom';
 import {
+   DashboardScreen,
    TransferKuotaScreen,
    WarehouseDetailScreen,
    WarehouseScreen
@@ -17,22 +18,26 @@ export default class Navigator extends Component {
             <Routes>
                <Route
                   path='/'
+                  element={<DashboardScreen />}
+               />
+               <Route
+                  path='/dashboard'
+                  element={<DashboardScreen />}
+               />
+               <Route
+                  path='/transfer-kuota'
                   element={<TransferKuotaScreen />}
                />
                <Route
-                  path='/home/erp/transfer-kuota'
-                  element={<TransferKuotaScreen />}
-               />
-               <Route
-                  path={'/home/erp/warehouse'}
+                  path={'/warehouse'}
                   element={<WarehouseScreen />}
                />
                <Route
-                  path='/home/erp/warehouse/detail-location-warehouse-retail'
+                  path='/warehouse/detail-location-warehouse-retail'
                   element={<WarehouseDetailScreen />}
                />
             </Routes>
          </BrowserRouter>
       );
    }
-}  
+}
