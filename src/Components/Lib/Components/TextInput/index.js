@@ -1,3 +1,4 @@
+import { Colors } from '../../../Themes';
 import View from '../View';
 
 const TextInput = ({
@@ -10,6 +11,9 @@ const TextInput = ({
    center = false,
    type = 'text',
    label = false,
+   padding = 8,
+   borderRadius = 4,
+   borderColor = Colors.grey2,
    style = {},
    ...props
 }) => {
@@ -24,8 +28,11 @@ const TextInput = ({
                marginRight: right,
                marginBottom: bottom,
                marginLeft: left,
+               borderColor,
                width,
                height,
+               padding,
+               borderRadius,
                textAlign: center ? 'center' : 'left',
                ...style
             }}

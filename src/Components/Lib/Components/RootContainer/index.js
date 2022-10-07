@@ -4,7 +4,7 @@ import {
    View
 } from '../../index';
 
-const DefaultTemplates = ({
+const RootContainer = ({
    children
 }) => {
    return (
@@ -12,7 +12,7 @@ const DefaultTemplates = ({
          <SideMenu />
 
          <View style={{ flex: 1 }}>
-            <Breadcrumbs />
+            {/* <Breadcrumbs /> */}
 
             <View style={styles.content}>
                {children}
@@ -22,7 +22,7 @@ const DefaultTemplates = ({
    );
 };
 
-export default DefaultTemplates;
+export default RootContainer;
 
 const styles = {
    container: {

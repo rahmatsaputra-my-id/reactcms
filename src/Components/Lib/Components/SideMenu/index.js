@@ -58,7 +58,9 @@ export default class SideMenu extends Component {
             <View style={styles.listContainer}>
 
                {dataDrawer && dataDrawer?.map((item, index) => {
-                  const { icon, route, onClick } = item;
+                  const { icon, route, onPress } = item;
+                  console.log('onPress', onPress);
+                  console.log('route', route);
                   const isCurrentScreen = (route === currentScreen);
 
                   return (
@@ -70,9 +72,9 @@ export default class SideMenu extends Component {
                            />
                            <Button
                               transparent
-                              onClick={onClick}
+                              onPress={onPress}
                               style={styles.buttonTitle}
-                              children={capitalizeEveryWord(route)}
+                              label={capitalizeEveryWord(route)}
                            />
                         </View>
                         {index !== (dataDrawer.length - 1) && (

@@ -31,7 +31,7 @@ export const styles = {
       backgroundColor: Colors.darkBlueBlack
    },
    buttonContainer: {
-      padding: 16,
+      paddingLeft: 16,
       borderRadius: 4,
       flexDirection: 'row'
    },

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllData } from '../../Helper/Action';
 import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
-import { Text, View, DefaultTemplates } from '../../Components/Lib';
+import { Text, View } from '../../Components/Lib';
 
 class DashboardScreen extends Component {
    constructor(props) {

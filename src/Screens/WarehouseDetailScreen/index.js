@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import { DataGrid } from '@mui/x-data-grid';
 import { getDataById } from '../../Helper/Action';
 import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
-import { DefaultTemplates, Text } from '../../Components/Lib';
+import { RootContainer, Text } from '../../Components/Lib';
 
 class WarehouseDetailSreen extends Component {
    constructor(props) {
@@ -108,7 +108,7 @@ class WarehouseDetailSreen extends Component {
 
    render() {
       return (
-         <DefaultTemplates
+         <RootContainer
             children={this._renderView()}
          />
       );
