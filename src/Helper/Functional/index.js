@@ -12,7 +12,6 @@ export const capitalizeEveryWord = (text) => {
    const capitalizeWords = [];
    const words = sentence.toLowerCase().split(' ');
 
-
    for (let index = 0; index < words.length; index++) {
       const capitalLetters = words[index].charAt(0).toUpperCase() + words[index].slice(1);
       capitalizeWords.push(capitalLetters);

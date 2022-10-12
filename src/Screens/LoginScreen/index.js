@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SET_ACCESS_TOKEN } from '../../Helper/Constants';
-import { Button, Text, TextInput, Touchable, View } from '../../Components/Lib';
+import { Button, PopUp, Text, TextInput, Touchable, View } from '../../Components/Lib';
 import { Colors } from '../../Components/Themes';
 import { postLogin } from '../../Helper/Action';
 import { regexEmail, regexPassword } from '../../Helper/Functional';
@@ -20,7 +20,8 @@ class LoginScreen extends Component {
             value: false,
             error: false
          },
-         isLoading: false
+         isLoading: false,
+         popUpData: false
       }
    }
 
@@ -63,12 +64,23 @@ class LoginScreen extends Component {
             }
 
             const result = await postLogin(payload);
+
             if (!result?.isError) {
                const token = result?.data?.token?.access || false;
                setAccessToken(token);
                window.location.replace('/dashboard');
             } else {
-               this.setState({ isLoading: false });
+               const { system, user } = result?.responseData?.status?.messages;
+
+               this.setState({
+                  isLoading: false,
+                  popUpData: {
+                     visible: true,
+                     title: system,
+                     description: user,
+                     labelAccept: 'TRY AGAIN'
+                  }
+               });
             }
          } catch (error) {
             console.log('LoginScreen/index.js@_handlerSubmit >>>', error);
@@ -78,7 +90,7 @@ class LoginScreen extends Component {
    }
 
    _renderScreen = () => {
-      const { email, password, isLoading } = this.state;
+      const { email, password, isLoading, popUpData } = this.state;
       const emailError = email?.error;
       const passwordError = password?.error;
       const emailValue = email?.value;
@@ -86,78 +98,88 @@ class LoginScreen extends Component {
       const isButtonDisabled = !emailValue || !passwordValue || emailError || passwordError;
 
       return (
-         <View style={styles.container}>
-            <View style={styles.badges} >
-               <Text
-                  style={styles.headerTitle}
-                  children={'Sign In'}
-               />
-            </View>
-
-            <View style={styles.card}>
-
-               <TextInput
-                  type='email'
-                  width={250}
-                  style={styles.textInput}
-                  placeholder={'Type your email'}
-                  label={'Email'}
-                  labelError={emailError}
-                  onChange={(email) => { this._handlerInputEmail(email) }}
-               />
-
-               <TextInput
-                  type='password'
-                  width={250}
-                  style={styles.textInput}
-                  label={'Password'}
-                  placeholder={'Type your password'}
-                  labelError={passwordError}
-                  // maxLength={8}
-                  onChange={(password) => { this._handlerInputPassword(password) }}
-               />
-
-               <Button
-                  isLoading={isLoading}
-                  disabled={isButtonDisabled}
-                  style={styles.button}
-                  label={'SUBMIT'}
-                  onPress={() => { this._handlerSubmit(); }}
-               />
-
-               <View style={styles.textContainer}>
+         <>
+            <View style={styles.container}>
+               <View style={styles.badges} >
                   <Text
-                     style={styles.quetionSignupTitle}
-                     children={'Dont have an account?'}
+                     style={styles.headerTitle}
+                     children={'Sign In'}
+                  />
+               </View>
+
+               <View style={styles.card}>
+
+                  <TextInput
+                     type='email'
+                     width={250}
+                     style={styles.textInput}
+                     placeholder={'Type your email'}
+                     label={'Email'}
+                     labelError={emailError}
+                     onChange={(email) => { this._handlerInputEmail(email) }}
                   />
 
-                  <Touchable
-                     onPress={'/register'}
-                     style={{ textDecoration: 'none' }}
-                  >
+                  <TextInput
+                     type='password'
+                     width={250}
+                     style={styles.textInput}
+                     label={'Password'}
+                     placeholder={'Type your password'}
+                     labelError={passwordError}
+                     maxLength={8}
+                     onChange={(password) => { this._handlerInputPassword(password) }}
+                  />
+
+                  <Button
+                     isLoading={isLoading}
+                     disabled={isButtonDisabled}
+                     style={styles.button}
+                     label={'SUBMIT'}
+                     onPress={() => { this._handlerSubmit(); }}
+                  />
+
+                  <View style={styles.textContainer}>
                      <Text
-                        style={styles.answerSignupTitle}
-                        children={'Sign Up'}
+                        style={styles.quetionSignupTitle}
+                        children={'Dont have an account?'}
                      />
-                  </Touchable>
+
+                     <Touchable
+                        onPress={'/register'}
+                        style={{ textDecoration: 'none' }}
+                     >
+                        <Text
+                           style={styles.answerSignupTitle}
+                           children={'Sign Up'}
+                        />
+                     </Touchable>
+                  </View>
+
+                  <View style={styles.textContainer}>
+                     <Touchable
+                        onPress={'/forget-password'}
+                        style={{ textDecoration: 'none' }}
+                     >
+                        <Text
+                           style={styles.answerSignupTitle}
+                           children={'Forgot password?'}
+                        />
+                     </Touchable>
+                  </View>
+
                </View>
-
-               <View style={styles.textContainer}>
-
-                  <Touchable
-                     onPress={'/forget-password'}
-                     style={{ textDecoration: 'none' }}
-                  >
-                     <Text
-                        style={styles.answerSignupTitle}
-                        children={'Forgot password?'}
-                     />
-                  </Touchable>
-               </View>
-
-
             </View>
-         </View>
+
+            <PopUp
+               visible={popUpData?.visible}
+               onPressClose={() => {
+                  this.setState({
+                     popUpData: { visible: false }
+                  })
+               }}
+               popUpData={popUpData}
+            />
+         </>
       );
    }
 
@@ -214,7 +236,7 @@ const styles = {
       borderRadius: 8,
       width: 200,
       marginBottom: -48,
-      zIndex: 1
+      zIndex: 0
    },
    headerTitle: {
       alignSelf: 'center',
@@ -227,7 +249,6 @@ const styles = {
    },
    textContainer: {
       flexDirection: 'row',
-      // paddingTop: 32,
       paddingBottom: 8,
       alignSelf: 'center',
    },

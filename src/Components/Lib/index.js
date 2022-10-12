@@ -4,6 +4,7 @@ import RootContainer from './Components/RootContainer';
 import DropDown from './Components/DropDown';
 import Image from './Components/Image';
 import LoadingSpinner from './Components/LoadingSpinner';
+import PopUp from './Components/PopUp';
 import SideMenu from './Components/SideMenu';
 import Text from './Components/Text';
 import TextInput from './Components/TextInput';
@@ -17,6 +18,7 @@ export {
    DropDown,
    Image,
    LoadingSpinner,
+   PopUp,
    SideMenu,
    Text,
    TextInput,

@@ -35,24 +35,16 @@ export const getDataById = async (warehouseIdSelected) => {
 
 export const postLogin = async (payload) => {
    try {
-      // const config = {
-      //    headers: {
-      //       'channel': 'web',
-      //       'x-api-key': baseUrlPackageApiKey,
-      //       'x-localization': language ? language : 'id'
-      //    }
-      // };
-
       const url = `${env.baseUrl}/v0/login`;
       const result = await Axios.post(url, payload);
 
       return result;
    } catch (error) {
-      // console.log('Helper/Action/index.js@postLogin', error);
-      console.log('Helper/Action/index.js@postLogin', error.response);
+      console.log('Helper/Action/index.js@postLogin', error?.response);
 
       let errorResponse = {
          isError: true,
+         responseData: error?.response?.data
       };
       return errorResponse;
    }
