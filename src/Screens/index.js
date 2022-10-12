@@ -1,13 +1,15 @@
 import DashboardScreen from './DashboardScreen';
+import LoginScreen from './LoginScreen';
 import TransferKuotaScreen from './TransferKuotaScreen';
+import RegisterScreen from './RegisterScreen';
 import WarehouseDetailScreen from './WarehouseDetailScreen';
 import WarehouseScreen from './WarehouseScreen';
-import LoginScreen from './LoginScreen';
 
 export {
    DashboardScreen,
    LoginScreen,
    TransferKuotaScreen,
+   RegisterScreen,
    WarehouseDetailScreen,
    WarehouseScreen
 };

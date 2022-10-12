@@ -59,8 +59,6 @@ export default class SideMenu extends Component {
 
                {dataDrawer && dataDrawer?.map((item, index) => {
                   const { icon, route, onPress } = item;
-                  console.log('onPress', onPress);
-                  console.log('route', route);
                   const isCurrentScreen = (route === currentScreen);
 
                   return (

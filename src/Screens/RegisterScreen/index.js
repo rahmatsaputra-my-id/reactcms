@@ -4,8 +4,7 @@ import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
 import { Button, Text, TextInput, Touchable, View } from '../../Components/Lib';
 import { Colors } from '../../Components/Themes';
 
-
-class LoginScreen extends Component {
+class RegisterScreen extends Component {
    constructor(props) {
       super(props);
 
@@ -18,14 +17,13 @@ class LoginScreen extends Component {
 
    _renderScreen = () => {
       const { isInputDataTransfer } = this.state;
-      const { navigation } = this.props;
 
       return (
          <View style={styles.container}>
             <View style={styles.badges} >
                <Text
                   style={styles.headerTitle}
-                  children={'Sign In'}
+                  children={'Sign Up'}
                />
             </View>
 
@@ -37,6 +35,12 @@ class LoginScreen extends Component {
                   placeholder={'Email'}
                />
 
+               <TextInput
+                  width={250}
+                  style={styles.textInput}
+                  placeholder={'Password'}
+               />
+               
                <TextInput
                   width={250}
                   style={styles.textInput}
@@ -54,7 +58,7 @@ class LoginScreen extends Component {
                   />
 
                   <Touchable
-                     onPress={() => {navigation.navigate('/register')}}
+                     onPress={'#'}
                      style={{ textDecoration: 'none' }}
                   >
                      <Text
@@ -89,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
    mapStateToProps,
    mapDispatchToProps
-)(LoginScreen);
+)(RegisterScreen);
 
 
 const styles = {
@@ -98,7 +102,7 @@ const styles = {
       alignItems: 'center',
       height: window.innerHeight,
       background: Colors.gradientWhite,
-      backgroundColor: Colors.blue
+      backgroundColor: Colors.red
    },
    card: {
       boxShadow: Colors.boxShadow,
