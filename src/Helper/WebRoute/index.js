@@ -4,6 +4,7 @@ import {
    Route,
    Routes
 } from 'react-router-dom';
+import { LoadingSpinner } from '../../Components/Lib';
 import NotFoundScreen from '../../Screens/NotFoundScreen';
 import { ProtectedRoute, PublicRoute } from './Components/SpecificRoute';
 
@@ -11,30 +12,40 @@ const LazyDashboardScreen = React.lazy(() => import('../../Screens/DashboardScre
 const LazyLoginScreen = React.lazy(() => import('../../Screens/LoginScreen'));
 const LazyRegisterScreen = React.lazy(() => import('../../Screens/RegisterScreen'));
 const LazyTransferKuotaScreen = React.lazy(() => import('../../Screens/TransferKuotaScreen'));
+const LazyForgetPasswordScreen = React.lazy(() => import('../../Screens/ForgotPasswordScreen'));
 
 export default class WebRoute extends Component {
 
    _renderBrowserRouter = () => {
-
       return (
          <BrowserRouter>
             <Routes>
                <Route
-                  path={'*'}
-                  element={
-                     <PublicRoute>
-                        <NotFoundScreen />
-                     </PublicRoute>
-                  }
-               />
-               <Route
-                  path={'/login'}
+                  path={'/'}
                   element={
                      <PublicRoute>
                         <LazyLoginScreen />
+                     </PublicRoute>}
+               >
+                  <Route
+                     path={'login'}
+                     element={
+                        <PublicRoute>
+                           <LazyLoginScreen />
+                        </PublicRoute>
+                     }
+                  />
+               </Route>
+
+               <Route
+                  path={'/forget-password'}
+                  element={
+                     <PublicRoute>
+                        <LazyForgetPasswordScreen />
                      </PublicRoute>
                   }
                />
+
                <Route
                   path={'/register'}
                   element={
@@ -43,6 +54,7 @@ export default class WebRoute extends Component {
                      </PublicRoute>
                   }
                />
+
                <Route
                   path={'/dashboard'}
                   element={
@@ -51,6 +63,7 @@ export default class WebRoute extends Component {
                      </ProtectedRoute>
                   }
                />
+
                <Route
                   path={'/transfer-kuota'}
                   element={
@@ -59,6 +72,16 @@ export default class WebRoute extends Component {
                      </ProtectedRoute>
                   }
                />
+
+               <Route
+                  path={'*'}
+                  element={
+                     <PublicRoute>
+                        <NotFoundScreen />
+                     </PublicRoute>
+                  }
+               />
+
             </Routes>
          </BrowserRouter>
       );

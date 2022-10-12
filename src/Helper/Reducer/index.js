@@ -1,10 +1,12 @@
 import { warehouseReducer } from '../../Screens/WarehouseScreen/reducer';
 import {
-   SET_WIDTH_LISTENER
+   SET_WIDTH_LISTENER,
+   SET_ACCESS_TOKEN
 } from '../Constants';
 
 const defaultState = {
-   widthListener: false
+   widthListener: false,
+   accessToken: false,
 };
 
 const appReducer = (state = defaultState, action) => {
@@ -15,6 +17,12 @@ const appReducer = (state = defaultState, action) => {
          _state = {
             ...state,
             widthListener: action.widthListener
+         };
+         break;
+      case SET_ACCESS_TOKEN:
+         _state = {
+            ...state,
+            accessToken: action.accessToken
          };
          break;
 

@@ -7,13 +7,16 @@ import {
    View
 } from '../../../Lib';
 import {
+   iconAllocatedKuota,
    iconToolbar
 } from '../../../../Assets/Shared';
 import { capitalizeEveryWord } from '../../../../Helper/Functional';
 import { pathVariables } from '../../../../Helper/Variables';
 import { styles } from './style';
+import { SET_ACCESS_TOKEN } from '../../../../Helper/Constants';
+import { connect } from 'react-redux';
 
-export default class SideMenu extends Component {
+class SideMenu extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -30,6 +33,32 @@ export default class SideMenu extends Component {
       const url = window.location.pathname;
       let result = url.split('/');
       result.splice(0, 1);
+      const { setAccessToken } = this.props;
+      const pathVariables = [
+         {
+            'icon': iconAllocatedKuota,
+            'route': 'dashboard',
+            'onPress': () => { window.location.replace('/dashboard'); }
+         },
+         {
+            'icon': iconAllocatedKuota,
+            'route': 'transfer-kuota',
+            'onPress': () => { window.location.replace('/transfer-kuota'); }
+         },
+         {
+            'icon': iconAllocatedKuota,
+            'route': 'table-user',
+            'onPress': () => { window.location.replace('/table-user'); }
+         },
+         {
+            'icon': iconAllocatedKuota,
+            'route': 'logout',
+            'onPress': () => {
+               setAccessToken(false);
+               window.location.replace('/login');
+            }
+         },
+      ];
 
       this.setState({
          dataDrawer: pathVariables,
@@ -97,3 +126,23 @@ export default class SideMenu extends Component {
       );
    }
 };
+
+const mapStateToProps = (state) => {
+   const { accessToken } = state;
+   return {
+      accessToken
+   };
+};
+
+const mapDispatchToProps = dispatch => ({
+   setAccessToken: (data) =>
+      dispatch({
+         type: SET_ACCESS_TOKEN,
+         accessToken: data
+      })
+});
+
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+)(SideMenu);

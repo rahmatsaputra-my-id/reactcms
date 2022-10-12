@@ -4,7 +4,7 @@ import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
 import { Button, Text, TextInput, Touchable, View } from '../../Components/Lib';
 import { Colors } from '../../Components/Themes';
 
-class RegisterScreen extends Component {
+class ForgetPasswordScreen extends Component {
    constructor(props) {
       super(props);
 
@@ -21,7 +21,7 @@ class RegisterScreen extends Component {
             <View style={styles.badges} >
                <Text
                   style={styles.headerTitle}
-                  children={'Sign Up'}
+                  children={'Forget Password'}
                />
             </View>
 
@@ -32,24 +32,6 @@ class RegisterScreen extends Component {
                   style={styles.textInput}
                   placeholder={'Email'}
                />
-               
-               <TextInput
-                  width={250}
-                  style={styles.textInput}
-                  placeholder={'Phone Number'}
-               />
-
-               <TextInput
-                  width={250}
-                  style={styles.textInput}
-                  placeholder={'Password'}
-               />
-               
-               <TextInput
-                  width={250}
-                  style={styles.textInput}
-                  placeholder={'Password'}
-               />
 
                <Button
                   label={'SUBMIT'}
@@ -58,7 +40,7 @@ class RegisterScreen extends Component {
                <View style={styles.textContainer}>
                   <Text
                      style={styles.quetionSignupTitle}
-                     children={'Already have an account?'}
+                     children={'Already have password?'}
                   />
 
                   <Touchable
@@ -97,7 +79,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
    mapStateToProps,
    mapDispatchToProps
-)(RegisterScreen);
+)(ForgetPasswordScreen);
 
 
 const styles = {
@@ -106,7 +88,7 @@ const styles = {
       alignItems: 'center',
       height: window.innerHeight,
       background: Colors.gradientWhite,
-      backgroundColor: Colors.green100
+      backgroundColor: Colors.red100
    },
    card: {
       boxShadow: Colors.boxShadow,

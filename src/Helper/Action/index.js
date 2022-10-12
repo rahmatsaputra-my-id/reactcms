@@ -1,4 +1,5 @@
 import Axios, * as others from 'axios';
+import { env } from '../Constants';
 
 export const getAllData = async () => {
    try {
@@ -24,6 +25,31 @@ export const getDataById = async (warehouseIdSelected) => {
       return result;
    } catch (error) {
       console.log('Helper/Action/index.js@getDataById', error);
+
+      let errorResponse = {
+         isError: true,
+      };
+      return errorResponse;
+   }
+};
+
+export const postLogin = async (payload) => {
+   try {
+      // const config = {
+      //    headers: {
+      //       'channel': 'web',
+      //       'x-api-key': baseUrlPackageApiKey,
+      //       'x-localization': language ? language : 'id'
+      //    }
+      // };
+
+      const url = `${env.baseUrl}/v0/login`;
+      const result = await Axios.post(url, payload);
+
+      return result;
+   } catch (error) {
+      // console.log('Helper/Action/index.js@postLogin', error);
+      console.log('Helper/Action/index.js@postLogin', error.response);
 
       let errorResponse = {
          isError: true,

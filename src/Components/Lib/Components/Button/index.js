@@ -1,4 +1,5 @@
 import { Colors } from '../../../Themes';
+import LoadingSpinner from '../LoadingSpinner';
 
 const Button = ({
    label,
@@ -12,6 +13,7 @@ const Button = ({
    borderRadius = 8,
    type = 'submit',
    padding = 16,
+   isLoading = false,
    transparent = false,
    disabled = false,
    onPress = () => { },
@@ -19,14 +21,16 @@ const Button = ({
    ...props
 }) => {
    const backgroundColor =
-      disabled
-         ? Colors.grey
+      disabled || isLoading
+         ? Colors.grey2
          : transparent
             ? 'transparent'
             : Colors.blue;
    return (
       <button
          style={{
+            display: 'flex',
+            justifyContent: 'center',
             marginTop: top,
             marginRight: right,
             marginBottom: bottom,
@@ -45,12 +49,13 @@ const Button = ({
             color: Colors.white,
             ...style
          }}
-         disabled={disabled}
+         disabled={isLoading || disabled}
          onClick={onPress}
          type={type}
          {...props}
       >
-         {label}
+         {!isLoading && label}
+         {isLoading && <LoadingSpinner />}
       </button >
    );
 };

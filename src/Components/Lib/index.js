@@ -3,6 +3,7 @@ import Breadcrumbs from './Components/Breadcrumbs';
 import RootContainer from './Components/RootContainer';
 import DropDown from './Components/DropDown';
 import Image from './Components/Image';
+import LoadingSpinner from './Components/LoadingSpinner';
 import SideMenu from './Components/SideMenu';
 import Text from './Components/Text';
 import TextInput from './Components/TextInput';
@@ -15,6 +16,7 @@ export {
    RootContainer,
    DropDown,
    Image,
+   LoadingSpinner,
    SideMenu,
    Text,
    TextInput,

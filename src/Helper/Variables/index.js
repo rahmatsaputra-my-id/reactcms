@@ -15,5 +15,12 @@ export const pathVariables = [
       'icon': iconAllocatedKuota,
       'route': 'table-user',
       'onPress': () => { window.location.replace('/table-user'); }
-   }
+   },
+   {
+      'icon': iconAllocatedKuota,
+      'route': 'logout',
+      'onPress': () => {
+         window.location.replace('/login');
+      }
+   },
 ];

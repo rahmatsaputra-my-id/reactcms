@@ -7,37 +7,52 @@ const TextInput = ({
    bottom = 0,
    left = 0,
    width = 200,
-   height = 20,
    center = false,
    type = 'text',
    label = false,
-   padding = 8,
+   labelError = false,
+   padding = 0,
    borderRadius = 4,
    borderColor = Colors.grey2,
    style = {},
    ...props
 }) => {
    return (
-      <View>
-         {label && (<label style={{ marginBottom: 2 }}>{label}</label>)}
+      <View
+         style={{
+            marginTop: top,
+            marginRight: right,
+            marginBottom: bottom,
+            marginLeft: left,
+            padding,
+            ...style
+         }}
+      >
+         {label && (<label style={{ marginBottom: 4, fontSize: 14 }}>{label}</label>)}
 
          <input
             type={type}
             style={{
-               marginTop: top,
-               marginRight: right,
-               marginBottom: bottom,
-               marginLeft: left,
                borderColor,
                width,
-               height,
-               padding,
+               padding: 8,
                borderRadius,
                textAlign: center ? 'center' : 'left',
-               ...style
             }}
             {...props}
          />
+
+         {labelError && (
+            <label
+               style={{
+                  marginTop: 2,
+                  fontSize: 14,
+                  color: 'red',
+                  maxWidth: 300
+               }}>
+               {labelError}
+            </label>
+         )}
       </View>
    );
 };

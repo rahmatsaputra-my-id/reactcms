@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
+import { SET_ACCESS_TOKEN } from '../../Helper/Constants';
 import { Button, Text, TextInput, Touchable, View } from '../../Components/Lib';
 import { Colors } from '../../Components/Themes';
+import { postLogin } from '../../Helper/Action';
+import { regexEmail, regexPassword } from '../../Helper/Functional';
 
 
 class LoginScreen extends Component {
@@ -10,15 +12,78 @@ class LoginScreen extends Component {
       super(props);
 
       this.state = {
+         email: {
+            value: false,
+            error: false
+         },
+         password: {
+            value: false,
+            error: false
+         },
+         isLoading: false
       }
    }
 
    componentDidMount = () => {
    }
 
+   _handlerInputEmail = (event) => {
+      const email = event?.target?.value;
+
+      if (regexEmail.test(email)) {
+         this.setState({ email: { value: email, error: false } })
+      } else {
+         this.setState({ email: { value: false, error: 'The email you entered is incorrect' } })
+      }
+   }
+
+   _handlerInputPassword = (event) => {
+      const password = event?.target?.value;
+
+      if (regexPassword.test(password)) {
+         this.setState({ password: { value: password, error: false } })
+      } else {
+         this.setState({ password: { value: false, error: 'The password you entered is incorrect, at least one special character, and minimum eight character' } })
+      }
+   }
+
+   _handlerSubmit = async () => {
+
+      const { email, password } = this.state;
+      const { setAccessToken } = this.props;
+      const emailValue = email?.value;
+      const passwordValue = password?.value;
+
+      if (emailValue && passwordValue) {
+         this.setState({ isLoading: true });
+         try {
+            const payload = {
+               email: emailValue,
+               password: passwordValue,
+            }
+
+            const result = await postLogin(payload);
+            if (!result?.isError) {
+               const token = result?.data?.token?.access || false;
+               setAccessToken(token);
+               window.location.replace('/dashboard');
+            } else {
+               this.setState({ isLoading: false });
+            }
+         } catch (error) {
+            console.log('LoginScreen/index.js@_handlerSubmit >>>', error);
+         }
+      }
+
+   }
+
    _renderScreen = () => {
-      const { isInputDataTransfer } = this.state;
-      const { navigation } = this.props;
+      const { email, password, isLoading } = this.state;
+      const emailError = email?.error;
+      const passwordError = password?.error;
+      const emailValue = email?.value;
+      const passwordValue = password?.value;
+      const isButtonDisabled = !emailValue || !passwordValue || emailError || passwordError;
 
       return (
          <View style={styles.container}>
@@ -32,19 +97,32 @@ class LoginScreen extends Component {
             <View style={styles.card}>
 
                <TextInput
+                  type='email'
                   width={250}
                   style={styles.textInput}
-                  placeholder={'Email'}
+                  placeholder={'Type your email'}
+                  label={'Email'}
+                  labelError={emailError}
+                  onChange={(email) => { this._handlerInputEmail(email) }}
                />
 
                <TextInput
+                  type='password'
                   width={250}
                   style={styles.textInput}
-                  placeholder={'Password'}
+                  label={'Password'}
+                  placeholder={'Type your password'}
+                  labelError={passwordError}
+                  // maxLength={8}
+                  onChange={(password) => { this._handlerInputPassword(password) }}
                />
 
                <Button
+                  isLoading={isLoading}
+                  disabled={isButtonDisabled}
+                  style={styles.button}
                   label={'SUBMIT'}
+                  onPress={() => { this._handlerSubmit(); }}
                />
 
                <View style={styles.textContainer}>
@@ -54,7 +132,7 @@ class LoginScreen extends Component {
                   />
 
                   <Touchable
-                     onPress={() => {navigation.navigate('/register')}}
+                     onPress={'/register'}
                      style={{ textDecoration: 'none' }}
                   >
                      <Text
@@ -63,6 +141,21 @@ class LoginScreen extends Component {
                      />
                   </Touchable>
                </View>
+
+               <View style={styles.textContainer}>
+
+                  <Touchable
+                     onPress={'/forget-password'}
+                     style={{ textDecoration: 'none' }}
+                  >
+                     <Text
+                        style={styles.answerSignupTitle}
+                        children={'Forgot password?'}
+                     />
+                  </Touchable>
+               </View>
+
+
             </View>
          </View>
       );
@@ -71,18 +164,18 @@ class LoginScreen extends Component {
    render() { return (this._renderScreen()); }
 }
 
-const mapStateToProps = state => {
-   const { selectedWarehouseId } = state;
+const mapStateToProps = (state) => {
+   const { accessToken } = state;
    return {
-      selectedWarehouseId
+      accessToken
    };
 };
 
 const mapDispatchToProps = dispatch => ({
-   setSelectedWarehouseId: (data) =>
+   setAccessToken: (data) =>
       dispatch({
-         type: SET_SELECTED_WAREHOUSE_ID,
-         selectedWarehouseId: data
+         type: SET_ACCESS_TOKEN,
+         accessToken: data
       })
 });
 
@@ -129,9 +222,12 @@ const styles = {
       fontWeight: 'bold',
       fontSize: 20
    },
+   button: {
+      marginBottom: 16
+   },
    textContainer: {
       flexDirection: 'row',
-      paddingTop: 32,
+      // paddingTop: 32,
       paddingBottom: 8,
       alignSelf: 'center',
    },

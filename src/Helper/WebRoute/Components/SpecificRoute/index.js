@@ -1,11 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { RootContainer } from '../../../../Components/Lib';
-import LoadingScreen from '../../../../Screens/LoadingScreen';
+import { LoadingSpinner, RootContainer } from '../../../../Components/Lib';
 
 export const ProtectedRoute = ({ children }) => {
-   // const accessToken = 'asdasdasd';
-   const accessToken = false;
+   const reduxState = useSelector(state => state);
+   const { accessToken } = reduxState;
 
    if (!accessToken) {
       // if user is not have accessToken will redirect to login
@@ -13,7 +13,7 @@ export const ProtectedRoute = ({ children }) => {
    }
 
    const screen = (
-      <React.Suspense fallback={<LoadingScreen />}>
+      <React.Suspense fallback={<LoadingSpinner page />}>
          <RootContainer children={children} />
       </React.Suspense>
    )
@@ -24,7 +24,7 @@ export const ProtectedRoute = ({ children }) => {
 export const PublicRoute = ({ children }) => {
 
    const screen = (
-      <React.Suspense fallback={<LoadingScreen />}>
+      <React.Suspense fallback={<LoadingSpinner page />}>
          {children}
       </React.Suspense>
    )

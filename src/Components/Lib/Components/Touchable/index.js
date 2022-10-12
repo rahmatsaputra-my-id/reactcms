@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Touchable = ({
    children,
    top = 0,
@@ -9,7 +11,7 @@ const Touchable = ({
    ...props
 }) => {
    return (
-      <a
+      <NavLink
          style={{
             marginTop: top,
             marginRight: right,
@@ -17,11 +19,11 @@ const Touchable = ({
             marginLeft: left,
             ...style
          }}
-         href={onPress}
+         to={onPress}
          {...props}
       >
          {children}
-      </a >
+      </NavLink >
    );
 };
 
