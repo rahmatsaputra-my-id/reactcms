@@ -23,3 +23,24 @@ export const capitalizeEveryWord = (text) => {
    return result;
 }
 
+/* To Navigate Between Page */
+// export const NavigateTo = async (navName, params = false, props = false, refresh = false) => {
+
+//    const currentPathname = history.location.pathname.replace(/(^(\/)?id\/|^(\/)?en\/)/i, '/');
+//    // const _navName = checkUrlLanguage(navName);
+
+//    if (refresh) {
+//       persistor.flush(); //some state does not persisted when navigate with reload. flush is designed to force the writing of all pending state asap, and to provide a promise to wait for the writes resolution. This can be handy for example if you need to ensure latest state is written before navigating away.
+//       const historyRefresh = createBrowserHistory({ forceRefresh: true });
+//       historyRefresh.push(navName, { from: currentPathname + history.location.search, ...params });
+//       return;
+//    }
+
+//    if (currentPathname + history.location.search === navName.replace(/(^(\/)?id\/|^(\/)?en\/)/i, '/')) {
+//       return;
+//    } else {
+//       history.push(navName, { from: currentPathname + history.location.search, ...params });
+//       return;
+//    }
+
+// };

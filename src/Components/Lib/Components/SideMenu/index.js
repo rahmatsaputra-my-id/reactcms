@@ -11,7 +11,6 @@ import {
    iconToolbar
 } from '../../../../Assets/Shared';
 import { capitalizeEveryWord } from '../../../../Helper/Functional';
-import { pathVariables } from '../../../../Helper/Variables';
 import { styles } from './style';
 import { SET_ACCESS_TOKEN } from '../../../../Helper/Constants';
 import { connect } from 'react-redux';

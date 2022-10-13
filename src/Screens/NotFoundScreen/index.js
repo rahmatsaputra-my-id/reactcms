@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
-import { Text, View } from '../../Components/Lib';
+import { SET_ACCESS_TOKEN, SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
+import { Button, Text, View } from '../../Components/Lib';
+import { Colors } from '../../Components/Themes';
 
 class NotFoundScreen extends Component {
    constructor(props) {
@@ -15,12 +16,30 @@ class NotFoundScreen extends Component {
    }
 
    _renderScreen = () => {
+      const { accessToken } = this.props;
+      const { isLoading } = this.state;
+
       return (
-         <View>
-            <Text
-               style={styles.title}
-               children={'Not Found Screen'}
-            />
+         <View style={styles.container}>
+            <View style={styles.card}>
+               <Text
+                  style={styles.title}
+                  children={'The page you are looking for could not be found.'}
+               />
+
+               <Button
+                  isLoading={isLoading}
+                  label={'Back'}
+                  onPress={() => {
+                     this.setState({ isLoading: true });
+                     setTimeout(() => {
+                        accessToken
+                           ? window.location.replace('/dashboard')
+                           : window.location.replace('/login')
+                     }, 1500);
+                  }}
+               />
+            </View>
          </View>
       );
    }
@@ -29,17 +48,17 @@ class NotFoundScreen extends Component {
 }
 
 const mapStateToProps = state => {
-   const { selectedWarehouseId } = state;
+   const { accessToken } = state;
    return {
-      selectedWarehouseId
+      accessToken
    };
 };
 
 const mapDispatchToProps = dispatch => ({
-   setSelectedWarehouseId: (data) =>
+   setAccessToken: (data) =>
       dispatch({
-         type: SET_SELECTED_WAREHOUSE_ID,
-         selectedWarehouseId: data
+         type: SET_ACCESS_TOKEN,
+         accessToken: data
       })
 });
 
@@ -51,19 +70,26 @@ export default connect(
 
 const styles = {
    container: {
-      display: 'flex',
-      flexDirection: 'row'
+      position: 'fixed',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center'
    },
-   content: {
-      paddingLeft: 48,
-      paddingRight: 48,
-      paddingTop: 24,
-      paddingBottom: 48,
-      flex: 1
+   card: {
+      boxShadow: Colors.boxShadow,
+      padding: 24,
+      borderRadius: 8,
+      width: '30%',
+      backgroundColor: Colors.backgroundColor
    },
    title: {
       fontWeight: 'bold',
       fontSize: 32,
-      marginBottom: 32
-   }
+      marginBottom: 32,
+      width: '100%',
+      textAlign: 'center'
+   },
 };
