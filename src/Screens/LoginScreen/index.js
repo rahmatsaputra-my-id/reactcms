@@ -44,7 +44,7 @@ class LoginScreen extends Component {
       if (regexPassword.test(password)) {
          this.setState({ password: { value: password, error: false } })
       } else {
-         this.setState({ password: { value: false, error: 'The password you entered is incorrect, at least one special character, and minimum eight character' } })
+         this.setState({ password: { value: false, error: 'The password you entered is incorrect, at least one special character, and minimum six character' } })
       }
    }
 
@@ -78,7 +78,12 @@ class LoginScreen extends Component {
                      visible: true,
                      title: system,
                      description: user,
-                     labelAccept: 'TRY AGAIN'
+                     labelAccept: 'TRY AGAIN',
+                     onPressAccept: () => {
+                        this.setState({
+                           popUpData: { visible: false }
+                        })
+                     }
                   }
                });
             }
@@ -172,11 +177,6 @@ class LoginScreen extends Component {
 
             <PopUp
                visible={popUpData?.visible}
-               onPressClose={() => {
-                  this.setState({
-                     popUpData: { visible: false }
-                  })
-               }}
                popUpData={popUpData}
             />
          </>

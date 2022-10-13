@@ -49,3 +49,47 @@ export const postLogin = async (payload) => {
       return errorResponse;
    }
 };
+
+export const postRegister = async (payload) => {
+   try {
+      const config = {
+         headers: {
+            'Content-Type': 'application/json'
+         }
+      };
+      const url = `${env.baseUrl}/v0/register`;
+      const result = await Axios.post(url, payload, config);
+
+      return result;
+   } catch (error) {
+      console.log('Helper/Action/index.js@postRegister', error?.response);
+
+      let errorResponse = {
+         isError: true,
+         responseData: error?.response?.data
+      };
+      return errorResponse;
+   }
+};
+
+export const postOTP = async (payload) => {
+   try {
+      const config = {
+         headers: {
+            'Content-Type': 'application/json'
+         }
+      };
+      const url = `${env.baseUrl}/v0/verify-email`;
+      const result = await Axios.post(url, payload, config);
+
+      return result;
+   } catch (error) {
+      console.log('Helper/Action/index.js@postOTP', error?.response);
+
+      let errorResponse = {
+         isError: true,
+         responseData: error?.response?.data
+      };
+      return errorResponse;
+   }
+};

@@ -10,8 +10,8 @@ export default class PopUp extends Component {
    }
 
    _renderScreen = () => {
-      const { onPressClose, popUpData } = this.props;
-      const { title, description, labelAccept } = popUpData;
+      const { popUpData, isLoading } = this.props;
+      const { title, description, labelAccept, onPressAccept } = popUpData;
 
       return (
          <View style={styles.container}>
@@ -30,8 +30,9 @@ export default class PopUp extends Component {
                </View>
 
                <Button
+                  isLoading={isLoading}
                   label={labelAccept}
-                  onPress={onPressClose}
+                  onPress={onPressAccept}
                />
             </View>
          </View>
