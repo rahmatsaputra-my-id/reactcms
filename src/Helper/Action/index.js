@@ -1,4 +1,4 @@
-import Axios, * as others from 'axios';
+import Axios from 'axios';
 import { env } from '../Constants';
 
 export const getAllData = async () => {
@@ -85,6 +85,23 @@ export const postOTP = async (payload) => {
       return result;
    } catch (error) {
       console.log('Helper/Action/index.js@postOTP', error?.response);
+
+      let errorResponse = {
+         isError: true,
+         responseData: error?.response?.data
+      };
+      return errorResponse;
+   }
+};
+
+export const postForgotPassword = async (payload) => {
+   try {
+      const url = `${env.baseUrl}/v0/forgot-password`;
+      const result = await Axios.post(url, payload);
+
+      return result;
+   } catch (error) {
+      console.log('Helper/Action/index.js@postForgotPassword', error?.response);
 
       let errorResponse = {
          isError: true,

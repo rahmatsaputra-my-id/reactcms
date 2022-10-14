@@ -6,7 +6,6 @@ import { Colors } from '../../Components/Themes';
 import { postLogin } from '../../Helper/Action';
 import { regexEmail, regexPassword } from '../../Helper/Functional';
 
-
 class LoginScreen extends Component {
    constructor(props) {
       super(props);
@@ -23,9 +22,6 @@ class LoginScreen extends Component {
          isLoading: false,
          popUpData: false
       }
-   }
-
-   componentDidMount = () => {
    }
 
    _handlerInputEmail = (event) => {

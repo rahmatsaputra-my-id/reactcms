@@ -3,7 +3,6 @@ import { Button, PopUp, Text, TextInput, Touchable, View } from '../../Component
 import { Colors } from '../../Components/Themes';
 import { regexEmail, regexFullName, regexOTP, regexPassword, regexPhoneNumber } from '../../Helper/Functional';
 import { postOTP, postRegister } from '../../Helper/Action';
-
 export default class RegisterScreen extends Component {
    constructor(props) {
       super(props);
@@ -38,9 +37,6 @@ export default class RegisterScreen extends Component {
          popUpData: false,
          currentScreen: 'REGISTER'
       }
-   }
-
-   componentDidMount = () => {
    }
 
    _handlerInputUsername = (event) => {
@@ -123,7 +119,7 @@ export default class RegisterScreen extends Component {
       }
    }
 
-   _handlerSubmit = async (e) => {
+   _handlerSubmit = async () => {
       const { username, email, msisdn, password, passwordConfirmation, otp, currentScreen } = this.state;
       const isCurrentScreenRegister = currentScreen === 'REGISTER';
       const usernameValue = username?.value;
