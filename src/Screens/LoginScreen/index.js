@@ -5,6 +5,7 @@ import { Button, PopUp, Text, TextInput, Touchable, View } from '../../Component
 import { Colors } from '../../Components/Themes';
 import { postLogin } from '../../Helper/Action';
 import { regexEmail, regexPassword } from '../../Helper/Functional';
+import { translate } from '../../Assets/Language/translation';
 
 class LoginScreen extends Component {
    constructor(props) {
@@ -30,7 +31,7 @@ class LoginScreen extends Component {
       if (regexEmail.test(email)) {
          this.setState({ email: { value: email, error: false } })
       } else {
-         this.setState({ email: { value: false, error: 'The email you entered is incorrect' } })
+         this.setState({ email: { value: false, error: translate.Global.IncorrectFormat.Email } })
       }
    }
 
@@ -40,7 +41,7 @@ class LoginScreen extends Component {
       if (regexPassword.test(password)) {
          this.setState({ password: { value: password, error: false } })
       } else {
-         this.setState({ password: { value: false, error: 'The password you entered is incorrect, at least one special character, and minimum six character' } })
+         this.setState({ password: { value: false, error: translate.Global.IncorrectFormat.Password } })
       }
    }
 
@@ -74,7 +75,7 @@ class LoginScreen extends Component {
                      visible: true,
                      title: system,
                      description: user,
-                     labelAccept: 'TRY AGAIN',
+                     labelAccept: translate.Global.TryAgain,
                      onPressAccept: () => {
                         this.setState({
                            popUpData: { visible: false }
@@ -104,7 +105,7 @@ class LoginScreen extends Component {
                <View style={styles.badges} >
                   <Text
                      style={styles.headerTitle}
-                     children={'Sign In'}
+                     children={translate.LoginScreen.Header}
                   />
                </View>
 
@@ -114,7 +115,7 @@ class LoginScreen extends Component {
                      type='email'
                      width={250}
                      style={styles.textInput}
-                     placeholder={'Type your email'}
+                     placeholder={translate.Global.Placeholder.Email}
                      label={'Email'}
                      labelError={emailError}
                      onChange={(email) => { this._handlerInputEmail(email) }}
@@ -125,7 +126,7 @@ class LoginScreen extends Component {
                      width={250}
                      style={styles.textInput}
                      label={'Password'}
-                     placeholder={'Type your password'}
+                     placeholder={translate.Global.Placeholder.Password}
                      labelError={passwordError}
                      maxLength={8}
                      onChange={(password) => { this._handlerInputPassword(password) }}
@@ -135,14 +136,14 @@ class LoginScreen extends Component {
                      isLoading={isLoading}
                      disabled={isButtonDisabled}
                      style={styles.button}
-                     label={'SUBMIT'}
+                     label={translate.Global.Submit}
                      onPress={() => { this._handlerSubmit(); }}
                   />
 
                   <View style={styles.textContainer}>
                      <Text
                         style={styles.quetionSignupTitle}
-                        children={'Dont have an account?'}
+                        children={translate.Global.AnotherOptionPage.NotHaveAccount}
                      />
 
                      <Touchable
@@ -151,7 +152,7 @@ class LoginScreen extends Component {
                      >
                         <Text
                            style={styles.answerSignupTitle}
-                           children={'Sign Up'}
+                           children={translate.RegisterScreen.Header}
                         />
                      </Touchable>
                   </View>
@@ -163,7 +164,7 @@ class LoginScreen extends Component {
                      >
                         <Text
                            style={styles.answerSignupTitle}
-                           children={'Forgot password?'}
+                           children={translate.Global.AnotherOptionPage.ForgotPassword}
                         />
                      </Touchable>
                   </View>

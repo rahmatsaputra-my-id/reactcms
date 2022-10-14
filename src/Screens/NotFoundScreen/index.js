@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SET_ACCESS_TOKEN, SET_SELECTED_WAREHOUSE_ID } from '../../Helper/Constants';
+import { SET_ACCESS_TOKEN } from '../../Helper/Constants';
 import { Button, Text, View } from '../../Components/Lib';
 import { Colors } from '../../Components/Themes';
+import { translate } from '../../Assets/Language/translation';
 
 class NotFoundScreen extends Component {
    constructor(props) {
@@ -10,9 +11,6 @@ class NotFoundScreen extends Component {
 
       this.state = {
       }
-   }
-
-   componentDidMount() {
    }
 
    _renderScreen = () => {
@@ -24,12 +22,12 @@ class NotFoundScreen extends Component {
             <View style={styles.card}>
                <Text
                   style={styles.title}
-                  children={'The page you are looking for could not be found.'}
+                  children={translate.NotFoundScren.Header}
                />
 
                <Button
                   isLoading={isLoading}
-                  label={'Back'}
+                  label={translate.Global.Back}
                   onPress={() => {
                      this.setState({ isLoading: true });
                      setTimeout(() => {

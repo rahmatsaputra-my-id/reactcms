@@ -3,6 +3,7 @@ import { Button, PopUp, Text, TextInput, Touchable, View } from '../../Component
 import { Colors } from '../../Components/Themes';
 import { regexEmail, regexOTP, regexPassword } from '../../Helper/Functional';
 import { postForgotPassword, postOTP } from '../../Helper/Action';
+import { translate } from '../../Assets/Language/translation';
 export default class ForgotPasswordScreen extends Component {
    constructor(props) {
       super(props);
@@ -37,7 +38,7 @@ export default class ForgotPasswordScreen extends Component {
       if (regexEmail.test(email)) {
          this.setState({ email: { value: email, error: false } })
       } else {
-         this.setState({ email: { value: false, error: 'The email you entered is incorrect' } })
+         this.setState({ email: { value: false, error: translate.Global.IncorrectFormat.Email } })
       }
    }
 
@@ -47,7 +48,7 @@ export default class ForgotPasswordScreen extends Component {
       if (regexOTP.test(otp)) {
          this.setState({ otp: { value: otp, error: false } })
       } else {
-         this.setState({ otp: { value: false, error: 'The otp you entered is incorrect' } })
+         this.setState({ otp: { value: false, error: translate.Global.IncorrectFormat.OTP } })
       }
    }
 
@@ -64,10 +65,10 @@ export default class ForgotPasswordScreen extends Component {
          } else {
             isPasswordMatch
                ? this.setState({ password: { value: password, error: false } })
-               : this.setState({ password: { value: false, error: 'The password you entered is not matched' } });
+               : this.setState({ password: { value: false, error: translate.Global.IncorrectFormat.PasswordNotMatched } });
          }
       } else {
-         this.setState({ password: { value: false, error: 'The password you entered is incorrect, at least one special character, and minimum six character' } })
+         this.setState({ password: { value: false, error: translate.Global.IncorrectFormat.Password } })
       }
    }
 
@@ -84,10 +85,10 @@ export default class ForgotPasswordScreen extends Component {
          } else {
             isPasswordConfirmationMatch
                ? this.setState({ passwordConfirmation: { value: passwordConfirmation, error: false } })
-               : this.setState({ passwordConfirmation: { value: false, error: 'The password confirmation you entered is not matched' } });
+               : this.setState({ passwordConfirmation: { value: false, error: translate.Global.IncorrectFormat.PasswordConfirmationNotMatched } });
          }
       } else {
-         this.setState({ passwordConfirmation: { value: false, error: 'The password you entered is incorrect, at least one special character, and minimum six character' } })
+         this.setState({ passwordConfirmation: { value: false, error: translate.Global.IncorrectFormat.PasswordConfirmationNotMatched } })
       }
    }
 
@@ -125,11 +126,11 @@ export default class ForgotPasswordScreen extends Component {
                         visible: true,
                         title: system,
                         description: user,
-                        labelAccept: 'UNDERSTAND',
+                        labelAccept: translate.Global.Understand,
                         onPressAccept: () => {
                            this.setState({
                               isLoadingPopup: true,
-                              currentScreen: "INPUTEMAIL"
+                              currentScreen: 'INPUTEMAIL'
                            });
                            window.location.replace('/login');
                         }
@@ -149,10 +150,10 @@ export default class ForgotPasswordScreen extends Component {
                         visible: true,
                         title: system,
                         description: errorDescription,
-                        labelAccept: 'TRY AGAIN',
+                        labelAccept: translate.Global.TryAgain,
                         onPressAccept: () => {
                            this.setState({
-                              currentScreen: "INPUTEMAIL",
+                              currentScreen: 'INPUTEMAIL',
                               popUpData: { visible: false }
                            })
                         }
@@ -183,11 +184,11 @@ export default class ForgotPasswordScreen extends Component {
                         visible: true,
                         title: system,
                         description: user,
-                        labelAccept: 'UNDERSTAND',
+                        labelAccept: translate.Global.Understand,
                         onPressAccept: () => {
                            this.setState({
                               popUpData: { visible: false },
-                              currentScreen: "INPUTNEWPASSWORD"
+                              currentScreen: 'INPUTNEWPASSWORD'
                            });
                         }
                      }
@@ -201,7 +202,7 @@ export default class ForgotPasswordScreen extends Component {
                         visible: true,
                         title: system,
                         description: user,
-                        labelAccept: 'TRY AGAIN',
+                        labelAccept: translate.Global.TryAgain,
                         onPressAccept: () => {
                            this.setState({
                               popUpData: { visible: false }
@@ -235,7 +236,7 @@ export default class ForgotPasswordScreen extends Component {
                            visible: true,
                            title: system,
                            description: user,
-                           labelAccept: 'UNDERSTAND',
+                           labelAccept: translate.Global.Understand,
                            onPressAccept: () => {
                               this.setState({
                                  currentScreen: 'INPUTOTP',
@@ -254,7 +255,7 @@ export default class ForgotPasswordScreen extends Component {
                            visible: true,
                            title: system,
                            description: user ? user : errorPassword,
-                           labelAccept: 'TRY AGAIN',
+                           labelAccept: translate.Global.TryAgain,
                            onPressAccept: () => {
                               this.setState({
                                  popUpData: { visible: false }
@@ -287,8 +288,8 @@ export default class ForgotPasswordScreen extends Component {
                type='email'
                width={250}
                style={styles.textInput}
-               label={'Email'}
-               placeholder={'Type your email'}
+               label={translate.Global.Label.Email}
+               placeholder={translate.Global.Placeholder.Email}
                labelError={emailError}
                onChange={(email) => { this._handlerInputEmail(email) }}
             />
@@ -297,14 +298,14 @@ export default class ForgotPasswordScreen extends Component {
                isLoading={isLoading}
                disabled={isButtonDisabled}
                style={styles.button}
-               label={'SUBMIT'}
+               label={translate.Global.Submit}
                onPress={() => { this._handlerSubmit(); }}
             />
 
             <View style={styles.textContainer}>
                <Text
                   style={styles.quetionSignupTitle}
-                  children={'Already have an account?'}
+                  children={translate.Global.AnotherOptionPage.HaveAccount}
                />
 
                <Touchable
@@ -313,7 +314,7 @@ export default class ForgotPasswordScreen extends Component {
                >
                   <Text
                      style={styles.answerSignupTitle}
-                     children={'Sign In'}
+                     children={translate.LoginScreen.Header}
                   />
                </Touchable>
             </View>
@@ -334,8 +335,8 @@ export default class ForgotPasswordScreen extends Component {
             <TextInput
                width={250}
                style={styles.textInput}
-               label={'OTP Code'}
-               placeholder={'Type your otp code'}
+               label={translate.Global.Label.OTP}
+               placeholder={translate.Global.Placeholder.OTP}
                labelError={otpError}
                onChange={(otpUser) => { this._handlerInputOTP(otpUser) }}
             />
@@ -344,7 +345,7 @@ export default class ForgotPasswordScreen extends Component {
                isLoading={isLoading}
                disabled={isButtonDisabled}
                style={styles.button}
-               label={'SUBMIT'}
+               label={translate.Global.Submit}
                onPress={() => { this._handlerSubmit(); }}
             />
          </>
@@ -369,8 +370,8 @@ export default class ForgotPasswordScreen extends Component {
                type='password'
                width={250}
                style={styles.textInput}
-               label={'Password'}
-               placeholder={'Type your password'}
+               label={translate.Global.Label.Password}
+               placeholder={translate.Global.Placeholder.Password}
                labelError={passwordError}
                maxLength={8}
                onChange={(password) => { this._handlerInputPassword(password) }}
@@ -380,8 +381,8 @@ export default class ForgotPasswordScreen extends Component {
                type='password'
                width={250}
                style={styles.textInput}
-               label={'Confirmation Password'}
-               placeholder={'Type your confirmation password'}
+               label={translate.Global.Label.PasswordConfirmation}
+               placeholder={translate.Global.Placeholder.PasswordConfirmation}
                labelError={passwordConfirmationError}
                maxLength={8}
                onChange={(passwordConfirmation) => { this._handlerInputPasswordConfirmation(passwordConfirmation) }}
@@ -391,7 +392,7 @@ export default class ForgotPasswordScreen extends Component {
                isLoading={isLoading}
                disabled={isButtonDisabled}
                style={styles.button}
-               label={'SUBMIT'}
+               label={translate.Global.Submit}
                onPress={() => { this._handlerSubmit(); }}
             />
          </>
@@ -409,7 +410,7 @@ export default class ForgotPasswordScreen extends Component {
                <View style={styles.badges} >
                   <Text
                      style={styles.headerTitle}
-                     children={'Forgot Password'}
+                     children={translate.ForgotPasswordScreen.Header}
                   />
                </View>
 
